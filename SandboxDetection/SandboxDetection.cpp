@@ -9,7 +9,7 @@ int main(void)
 	ProcessUtils procUtil = ProcessUtils(GetCurrentProcessId());
 
 	char *avastSignatures[] = { "A.v.a.s.t", "s.n.x.h.k" };
-	bool avastSandbox = procUtil.SearchForSignaureInMemory(avastSignatures);
+	bool avastSandbox = procUtil.SearchForSignatureInMemory(avastSignatures);
 
 	bool comodoSandbox = procUtil.SearchForModuleInProcess(L"cmdvrt32.dll");
 	bool qihoo360Sandbox = procUtil.SearchForModuleInProcess(L"SxIn.dll");

@@ -8,5 +8,5 @@ public:
 	~ProcessUtils();
 
 	bool SearchForModuleInProcess(TCHAR moduleToFind[MAX_PATH]);
-	bool ProcessUtils::SearchForSignaureInMemory(char* signature[]);
+	bool ProcessUtils::SearchForSignatureInMemory(char* signature[]);
 };

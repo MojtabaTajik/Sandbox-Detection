@@ -46,7 +46,7 @@ bool ProcessUtils::SearchForModuleInProcess(TCHAR moduleToFind[MAX_PATH])
 	return false;;
 }
 
-bool ProcessUtils::SearchForSignaureInMemory(char* signature[])
+bool ProcessUtils::SearchForSignatureInMemory(char* signature[])
 {
 	if (processHandle)
 	{

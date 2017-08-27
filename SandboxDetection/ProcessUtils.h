@@ -4,6 +4,9 @@
 class ProcessUtils
 {
 public:
-	bool SearchForModuleInProcess(HANDLE processHandle, TCHAR moduleToFind[MAX_PATH]);
-	bool SearchForSignatureInProcessMemory(HANDLE processHandle, char* signature[]);
+	ProcessUtils(DWORD processID);
+	~ProcessUtils();
+
+	bool SearchForModuleInProcess(TCHAR moduleToFind[MAX_PATH]);
+	bool ProcessUtils::SearchForSignatureInMemory(char* signature[]);
 };

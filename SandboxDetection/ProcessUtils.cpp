@@ -10,13 +10,26 @@
 
 using namespace std;
 
-bool ProcessUtils::SearchForModuleInProcess(HANDLE processHandle, TCHAR moduleToFind[MAX_PATH])
+HANDLE processHandle;
+
+ProcessUtils::ProcessUtils(DWORD processID)
+{
+	processHandle = OpenProcess(PROCESS_QUERY_INFORMATION | PROCESS_VM_READ, FALSE, processID);
+	if (processHandle == nullptr)
+		throw std::invalid_argument("Fill process id");
+}
+
+ProcessUtils::~ProcessUtils()
+{
+	CloseHandle(processHandle);
+}
+
+bool ProcessUtils::SearchForModuleInProcess(TCHAR moduleToFind[MAX_PATH])
 {
 	HMODULE moduleHandle[1024];
 	DWORD cbNeeded;
 	unsigned int i;
 
-	if (! processHandle) return false;
 	if (EnumProcessModules(processHandle, moduleHandle, sizeof(moduleHandle), &cbNeeded))
 	{
 		for (i = 0; i < (cbNeeded / sizeof(HMODULE)); i++)
@@ -33,10 +46,10 @@ bool ProcessUtils::SearchForModuleInProcess(HANDLE processHandle, TCHAR moduleTo
 	return false;;
 }
 
-bool ProcessUtils::SearchForSignatureInProcessMemory(HANDLE processHandle, char* signature[])
+bool ProcessUtils::SearchForSignatureInMemory(char* signature[])
 {
-	if (!processHandle) return false;
-
+	if (processHandle)
+	{
 		SYSTEM_INFO sys_info;
 		GetSystemInfo(&sys_info);
 
@@ -100,4 +113,7 @@ bool ProcessUtils::SearchForSignatureInProcessMemory(HANDLE processHandle, char*
 				}
 			}
 		}
+	}
+
+	return false;
 }
